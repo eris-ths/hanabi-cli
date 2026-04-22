@@ -7,6 +7,8 @@ Forked from [`eris-ths/guild-cli`](https://github.com/eris-ths/guild-cli) v0.3.0
 > **Status**: alpha (0.x). Precursor to [`atelier`](./docs/ATELIER.md) — the game engine being designed around this prototype.
 > See [`SECURITY.md`](./SECURITY.md) for the threat model and [`CHANGELOG.md`](./CHANGELOG.md) for release history.
 
+> 日本語版は [`README.ja.md`](./README.ja.md) を参照。 翻訳ではなく、日本語話者の読み手に向けて独立に書かれています。
+
 ## Why this exists
 
 Three simultaneous goals:
