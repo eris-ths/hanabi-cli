@@ -1,4 +1,4 @@
-# AGENT.md — hanabi-cli quick reference for AI agents
+# AGENT.md — fireworks-cli quick reference for AI agents
 
 > Optimized for minimal token use. Read this instead of `README.md` if you're operating the tool and want the verb map.
 
@@ -11,12 +11,12 @@ Forked from [`guild-cli`](https://github.com/eris-ths/guild-cli) v0.3.0. Same in
 ## Invocation
 
 ```bash
-node /path/to/hanabi-cli/bin/hanabi.mjs <verb> [flags]
+node /path/to/fireworks-cli/bin/fireworks.mjs <verb> [flags]
 ```
 
 Environment:
-- `HANABI_ROOT` — content root directory. Defaults to `cwd`. Ledger files live under `<root>/games/`.
-- `HANABI_REVEAL=1` — if set, `new-game` prints all hands (debug/replay only).
+- `FIREWORKS_ROOT` — content root directory. Defaults to `cwd`. Ledger files live under `<root>/games/`.
+- `FIREWORKS_REVEAL=1` — if set, `new-game` prints all hands (debug/replay only).
 
 ## Verbs (complete list)
 
@@ -48,9 +48,9 @@ Environment:
 `show --as <player>` hides that player's own hand (cards rendered as `**`) while showing everyone else's. The snapshot on disk always contains ground truth; the lens is applied only at render time.
 
 ```bash
-hanabi show                  # spectator: all hands visible (ground truth)
-hanabi show --as eris        # eris: own hand hidden, nao's visible
-hanabi show --as nao         # nao: own hand hidden, eris's visible
+fireworks show                  # spectator: all hands visible (ground truth)
+fireworks show --as eris        # eris: own hand hidden, nao's visible
+fireworks show --as nao         # nao: own hand hidden, eris's visible
 ```
 
 **Current limitation**: `show --as` does not currently render the player's own *inferred* knowledge (hints accumulated from past `inform` turns). The information is in `snap.log` but requires a separate traversal. UX improvement pending.
@@ -78,7 +78,7 @@ The single copy of each 5 makes them critical — discarding a 5 locks that colo
 ## File layout
 
 ```
-<HANABI_ROOT>/
+<FIREWORKS_ROOT>/
 └── games/
     └── <id>.yaml       # one file per game, atomic write + CAS
 ```
@@ -102,7 +102,7 @@ For the longer vision (Card abstraction, pack distribution, Lua scripting, Eris 
 
 ## Gotchas
 
-- `HANABI_ROOT` is mandatory if you're invoking from outside the content root. Falling back to `cwd` is convenient but easy to lose track of.
+- `FIREWORKS_ROOT` is mandatory if you're invoking from outside the content root. Falling back to `cwd` is convenient but easy to lose track of.
 - Player names must match `/^[a-zA-Z][a-zA-Z0-9_-]*$/`. No spaces, no Unicode, no leading digits.
 - Seeds can be any string; they're FNV-1a hashed into a 32-bit PRNG state. Same string → same shuffle.
 - `inform` cannot target a player who has zero cards matching the hint (wasmoon-level invariant not yet enforced — this is a pending strictness tightening).
@@ -111,4 +111,4 @@ For the longer vision (Card abstraction, pack distribution, Lua scripting, Eris 
 
 If you want to play a game with another AI instance, the ledger file is the entire shared state. Push the game's `<id>.yaml` file anywhere — email, git, shared filesystem — and the receiving agent can resume from `show`. No network, no daemon, no DB.
 
-If you want to propose a rule change or new verb, open an issue or PR against [`eris-ths/hanabi-cli`](https://github.com/eris-ths/hanabi-cli). Keep the CAS + lens invariants intact.
+If you want to propose a rule change or new verb, open an issue or PR against [`eris-ths/fireworks-cli`](https://github.com/eris-ths/fireworks-cli). Keep the CAS + lens invariants intact.

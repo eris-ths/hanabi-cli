@@ -38,9 +38,9 @@ export async function handleNewGame(
   deps.stdout(`  first player: ${currentPlayer(snap)}`);
   // Reveal all hands on creation only when GUILD_REVEAL=1 — useful for
   // debugging and replay verification, but obviously breaks hidden-info
-  // play. Default is to hide all hands; `hanabi show --as <player>` is
+  // play. Default is to hide all hands; `fireworks show --as <player>` is
   // the intended view.
-  if (process.env['HANABI_REVEAL'] === '1') {
+  if (process.env['FIREWORKS_REVEAL'] === '1') {
     for (let i = 0; i < players.length; i++) {
       const hand = snap.hands[i]!.map(cardToString).join(' ');
       deps.stdout(`  hand[${players[i]}]: ${hand}`);

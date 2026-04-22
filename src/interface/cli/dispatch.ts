@@ -5,19 +5,20 @@ import { handlePlay, handleDiscard, handleInform } from '../handlers/play.js';
 import { buildRepo } from '../shared/container.js';
 import { DomainError } from '../../domain/shared/DomainError.js';
 
-const HELP = `hanabi — cooperative card game ledger
+const HELP = `fireworks — cooperative card game ledger
+  (rules based on Hanabi by Antoine Bauza, 2010)
 
 usage:
-  hanabi new-game --players <p1,p2,...> [--seed <s>] [--id <id>]
-  hanabi show [--as <player>] [--id <id>]
-  hanabi play <handIndex> --by <player> [--id <id>]
-  hanabi discard <handIndex> --by <player> [--id <id>]
-  hanabi inform --by <player> --target <player> (--color <c> | --rank <n>) [--id <id>]
-  hanabi list
+  fireworks new-game --players <p1,p2,...> [--seed <s>] [--id <id>]
+  fireworks show [--as <player>] [--id <id>]
+  fireworks play <handIndex> --by <player> [--id <id>]
+  fireworks discard <handIndex> --by <player> [--id <id>]
+  fireworks inform --by <player> --target <player> (--color <c> | --rank <n>) [--id <id>]
+  fireworks list
 
 env:
-  HANABI_ROOT    content_root directory (default: cwd)
-  HANABI_REVEAL  if "1", new-game prints all hands (debug/replay only)
+  FIREWORKS_ROOT    content_root directory (default: cwd)
+  FIREWORKS_REVEAL  if "1", new-game prints all hands (debug/replay only)
 `;
 
 export async function main(argv: ReadonlyArray<string>): Promise<number> {

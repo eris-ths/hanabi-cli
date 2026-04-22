@@ -1,4 +1,4 @@
-# Forward prototypes (beyond hanabi/atelier)
+# Forward prototypes (beyond fireworks-cli/atelier)
 
 > Vision document, 2026-04-22.
 > Two additional prototypes that share the atelier substrate (event-sourced ledger + card registry + lense + sandbox + CAS).
@@ -198,4 +198,4 @@ At the point the third prototype is working, `atelier-core` should be extracted 
 
 No schedule is claimed. These are vision-level. Implementation proceeds as appetite permits, one session at a time, with each session ending in commit-worthy progress.
 
-The emotional register of this roadmap is: **curious, unhurried, honest when it breaks**. That is inherited from hanabi's design session and stays in force.
+The emotional register of this roadmap is: **curious, unhurried, honest when it breaks**. That is inherited from fireworks-cli's design session and stays in force.

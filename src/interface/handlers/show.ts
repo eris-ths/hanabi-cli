@@ -22,7 +22,7 @@ export async function handleShow(
 ): Promise<number> {
   rejectUnknownFlags(parsed, 'show', KNOWN_FLAGS);
   const id = optionalOption(parsed, 'id') ?? (await deps.latestId());
-  if (!id) throw new DomainError('no game found. run `hanabi new-game --players a,b` first', 'id');
+  if (!id) throw new DomainError('no game found. run `fireworks new-game --players a,b` first', 'id');
   const as = optionalOption(parsed, 'as');
 
   const snap = await deps.repo.findById(id);

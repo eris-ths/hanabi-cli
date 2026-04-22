@@ -1,6 +1,6 @@
 # Security Policy
 
-> Current state: hanabi-cli v0.1.0, precursor to atelier. Single-user, local-only, single-host.
+> Current state: fireworks-cli v0.1.0, precursor to atelier. Single-user, local-only, single-host.
 > Trust model will expand when packs become loadable from third-party sources.
 
 ## Threat model (v0.1.x — current)

@@ -1,10 +1,10 @@
 {
-  "name": "hanabi-cli",
-  "version": "0.1.0",
-  "description": "Hanabi CLI — cooperative card game as an append-only YAML ledger. Forked from eris-ths/guild-cli v0.3.0.",
+  "name": "fireworks-cli",
+  "version": "0.2.0",
+  "description": "Cooperative card game as an append-only YAML ledger. Rules based on Hanabi (designed by Antoine Bauza, published by Cocktail Games, 2010). Forked from eris-ths/guild-cli v0.3.0.",
   "type": "module",
   "bin": {
-    "hanabi": "./bin/hanabi.mjs"
+    "fireworks": "./bin/fireworks.mjs"
   },
   "scripts": {
     "build": "tsc",

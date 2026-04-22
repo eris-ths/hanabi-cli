@@ -25,7 +25,7 @@ export interface ActionDeps {
 }
 
 function parseHandIndex(parsed: ParsedArgs, verb: string): number {
-  // Accept as positional (hanabi play 2) or as --index. Positional is
+  // Accept as positional (fireworks play 2) or as --index. Positional is
   // the more natural feel for a card game; --index is the escape hatch
   // when chaining with shell tools.
   const raw = parsed.positional[0] ?? optionalOption(parsed, 'index');
@@ -39,7 +39,7 @@ function parseHandIndex(parsed: ParsedArgs, verb: string): number {
 
 async function loadOrFail(deps: ActionDeps, id: string | null): Promise<{ id: string; snap: GameSnapshot }> {
   const resolvedId = id ?? (await deps.latestId());
-  if (!resolvedId) throw new DomainError('no game found. run `hanabi new-game` first', 'id');
+  if (!resolvedId) throw new DomainError('no game found. run `fireworks new-game` first', 'id');
   const snap = await deps.repo.findById(resolvedId);
   if (!snap) throw new DomainError(`game not found: ${resolvedId}`, 'id');
   return { id: resolvedId, snap };

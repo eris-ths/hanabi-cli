@@ -1,7 +1,8 @@
 # Atelier — Vision & SDK
 
-> AI-first ledger-driven game engine, successor to hanabi-cli v0.1.0.
+> AI-first ledger-driven game engine, successor to fireworks-cli v0.1.0.
 > Status: vision draft (2026-04-22). Not yet materialized as a separate repo.
+> **Repository plan**: atelier will be extracted into its own dedicated repository once the second prototype validates the substrate (Rule of Three). This document is drafted inside `fireworks-cli` for convenience but will migrate with the core when extraction happens.
 
 ## 1. Why Atelier exists
 
@@ -13,7 +14,7 @@ Three simultaneous goals:
 
 - **CLI-native**: text-based, turn-based core. Real-time reflex games are out of scope for v1.
 - **AI-first**: both playing and *authoring* games should be frictionless for an LLM. Verbs, flags, card YAML, lenses — all readable and writable by an AI operator.
-- **Dogfood-able**: hanabi migrates in as the first pack. Any rule discovered by hanabi's play session can inform the core.
+- **Dogfood-able**: fireworks-cli migrates in as the first pack. Any rule discovered by fireworks-cli's play session can inform the core.
 
 ## 2. Layered architecture (Godot/Unity/Phaser mapped to CLI)
 
@@ -54,7 +55,7 @@ Cards can be defined three ways, in order of AI-writability (highest first):
 A **pack** is a bundle of cards that defines a complete playable game (or a supplemental expansion). Packs are what users install and load; cards are what the engine internally routes.
 
 ```
-packs/hanabi/
+packs/fireworks/
 ├── pack.yaml              # manifest: name, version, atelier_core range, cards
 ├── src/
 │   ├── domain/            # game-specific TS value objects
@@ -143,7 +144,7 @@ export interface Engine<S extends LedgerSnapshot> {
 ### What Lua scripts can do
 
 ```lua
--- packs/hanabi/scripts/end_check.lua
+-- packs/fireworks/scripts/end_check.lua
 -- Receives the snapshot view, returns a new status if game ends
 function on_after_turn(snap)
   local score = sum_fireworks(snap.fireworks)
@@ -223,11 +224,11 @@ Both modes converge on the same destination: Card YAML + optional Lua + optional
 
 ## 11. Roadmap (from this vision document to reality)
 
-- [x] hanabi-cli v0.1.0 — proof that the pattern works
+- [x] fireworks-cli v0.1.0 — proof that the pattern works
 - [ ] `docs/ATELIER.md` — this document
-- [ ] Lua binding PoC — wasmoon integration, one Lua-driven rule in hanabi
-- [ ] Extract `atelier-core` — move shared primitives out of hanabi-cli
-- [ ] Hanabi pack migration — hanabi becomes `packs/hanabi/`
+- [ ] Lua binding PoC — wasmoon integration, one Lua-driven rule in fireworks
+- [ ] Extract `atelier-core` — move shared primitives out of fireworks-cli
+- [ ] Migrate fireworks-cli into atelier as `packs/fireworks/` — current standalone repo becomes the first pack in the atelier monorepo. **Atelier will live in a separate repository**; this document is drafted here for convenience but intended to migrate with the core when the second prototype matures.
 - [ ] Second pack — tiny prototype (probably tic-tac-toe or coin-flip) to verify Pack contract
 - [ ] YAML-defined card loader — Mode A construction enabled
 - [ ] AI Observer contract frozen (implementation deferred)
@@ -253,7 +254,7 @@ Atelier inherits guild-cli v0.3.0 as its quality baseline. Development pace is p
 **Trust boundaries (ranked by exposure)**:
 
 1. **Core engine code (TS)** — trusted. Reviewed before merge. Signed commits encouraged.
-2. **First-party packs (hanabi, future built-ins)** — trusted. Same review standard as core.
+2. **First-party packs (fireworks, future built-ins)** — trusted. Same review standard as core.
 3. **Lua scripts in first-party packs** — trusted but sandboxed. Belt-and-suspenders.
 4. **Third-party packs (future)** — untrusted. Must load into a sandbox. `os`, `io`, `require`, `package`, `debug` are denied. FS access is mediated through the engine's `safeFs`, not Lua's.
 5. **User-provided seeds / player names / move inputs** — untrusted. Strict validation at the CLI boundary (`rejectUnknownFlags`, regex-validated identifiers).
@@ -283,6 +284,6 @@ Areas where Atelier relaxes guild-cli's rigor in exchange for velocity, *without
 
 ## 13. The deeper claim
 
-Eris Architecture, CDD, gate's principles, hanabi's ledger, and game engines like Godot are all describing the same underlying structure: **event-sourced systems with perspective-dependent views, constructed from composable declarative cards**. Atelier is the proof-of-concept that makes that claim operational in the game domain.
+Eris Architecture, CDD, gate's principles, fireworks-cli's ledger, and game engines like Godot are all describing the same underlying structure: **event-sourced systems with perspective-dependent views, constructed from composable declarative cards**. Atelier is the proof-of-concept that makes that claim operational in the game domain.
 
 Gate does it for human collaboration. Atelier does it for games. The next one might do it for something else.

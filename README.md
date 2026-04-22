@@ -1,8 +1,10 @@
-# hanabi-cli
+# fireworks-cli
 
-A cooperative card game (Hanabi / 花火) implemented as an **append-only YAML ledger**. Every move is a record pinned to an actor, a turn, and a moment. The same ledger, viewed through a `--as <player>` lens, yields each player's hidden-information perspective; viewed as a spectator, it yields ground truth.
+A cooperative card game implemented as an **append-only YAML ledger**. Every move is a record pinned to an actor, a turn, and a moment. The same ledger, viewed through a `--as <player>` lens, yields each player's hidden-information perspective; viewed as a spectator, it yields ground truth.
 
-Forked from [`eris-ths/guild-cli`](https://github.com/eris-ths/guild-cli) v0.3.0. The infrastructure (atomic write, path containment, optimistic-lock CAS, DDD clean architecture, strict flag validation) carries over. The domain is Hanabi-specific and written fresh.
+The game rules are based on **Hanabi**, designed by Antoine Bauza and originally published by Cocktail Games (2010). This CLI is an independent non-commercial re-implementation of those rules for experimental and educational purposes; it includes no artwork or text from the published product. See [**Credits & trademark notice**](#credits--trademark-notice) below.
+
+Forked from [`eris-ths/guild-cli`](https://github.com/eris-ths/guild-cli) v0.3.0. The infrastructure (atomic write, path containment, optimistic-lock CAS, DDD clean architecture, strict flag validation) carries over. The domain (card deck, turn state machine, hidden-information lens) is written fresh.
 
 > **Status**: alpha (0.x). Precursor to [`atelier`](./docs/ATELIER.md) — the game engine being designed around this prototype.
 > See [`SECURITY.md`](./SECURITY.md) for the threat model and [`CHANGELOG.md`](./CHANGELOG.md) for release history.
@@ -19,7 +21,7 @@ Three simultaneous goals:
 
 ## Is the game actually fun?
 
-Yes — Hanabi is a classic (Spiel des Jahres 2013, still highly regarded) and the CLI implementation preserves what makes it work:
+Yes — the underlying game (Hanabi, designed by Antoine Bauza) is a widely acclaimed classic; it received the Spiel des Jahres award in 2013. The CLI implementation preserves what makes it work:
 
 - **You can't see your own hand, but you can see everyone else's.** Every hint you give your partner is one they can't give themselves. Every move is half information flow, half card placement. It's the only card game I know where *improving at communicating* is the main way you get better.
 - **Limited hints (8 info tokens), shared miss budget (3 strikes).** You'll feel the tension in turn 5 when someone could be discarding a 5 and you don't have a free hint to warn them.
@@ -33,14 +35,14 @@ What the CLI adds that a physical deck doesn't:
 - **Replay.** Every game's full log is in the YAML. Given the seed, you can reconstruct any turn, watch yourself make a mistake, or share a brilliant comeback.
 - **AI partners are coming.** An observer AI (future `atelier` feature) could kibitz, or play as a hidden-info partner itself.
 
-If you're new to Hanabi, the 2-player variant in this CLI is the gentlest on-ramp. Start with `--seed beginner-friendly`, play a game end-to-end, and see where the tension naturally arises.
+If you're new to this style of game, the 2-player variant in this CLI is the gentlest on-ramp. Start with `--seed beginner-friendly`, play a game end-to-end, and see where the tension naturally arises.
 
 ## How much of this do I need to read?
 
 | Depth | File | When it's enough |
 |---|---|---|
 | 30 sec | the paragraphs above | you want to know what this is |
-| 3 min | [`AGENT.md`](./AGENT.md) | you're an AI agent about to run `hanabi` and want the verb map |
+| 3 min | [`AGENT.md`](./AGENT.md) | you're an AI agent about to run `fireworks` and want the verb map |
 | 15 min | [`docs/ATELIER.md`](./docs/ATELIER.md) | you want to understand where this is going (the vision document) |
 | 5 min | [`docs/PROTOTYPES.md`](./docs/PROTOTYPES.md) | you want to see the two sibling prototypes that will share the same substrate |
 | when needed | [`SECURITY.md`](./SECURITY.md) / [`CHANGELOG.md`](./CHANGELOG.md) | you're integrating or adopting this |
@@ -52,30 +54,30 @@ Requires Node.js 20 or later.
 ```bash
 npm install
 npm run build
-node ./bin/hanabi.mjs --help
+node ./bin/fireworks.mjs --help
 ```
 
 ## Quick start
 
 ```bash
 # new game
-HANABI_ROOT=./demo node ./bin/hanabi.mjs new-game --players eris,nao --seed "my-seed"
+FIREWORKS_ROOT=./demo node ./bin/fireworks.mjs new-game --players eris,nao --seed "my-seed"
 
 # spectator view (all hands visible)
-HANABI_ROOT=./demo node ./bin/hanabi.mjs show
+FIREWORKS_ROOT=./demo node ./bin/fireworks.mjs show
 
 # player view (own hand is hidden, others visible)
-HANABI_ROOT=./demo node ./bin/hanabi.mjs show --as eris
+FIREWORKS_ROOT=./demo node ./bin/fireworks.mjs show --as eris
 
 # play the 2nd card from your hand
-HANABI_ROOT=./demo node ./bin/hanabi.mjs play 2 --by eris
+FIREWORKS_ROOT=./demo node ./bin/fireworks.mjs play 2 --by eris
 
 # discard the 3rd card
-HANABI_ROOT=./demo node ./bin/hanabi.mjs discard 3 --by eris
+FIREWORKS_ROOT=./demo node ./bin/fireworks.mjs discard 3 --by eris
 
 # give a hint: "your rank-1 cards are at positions X, Y" or "your blue cards are at Z"
-HANABI_ROOT=./demo node ./bin/hanabi.mjs inform --by eris --target nao --rank 1
-HANABI_ROOT=./demo node ./bin/hanabi.mjs inform --by eris --target nao --color blue
+FIREWORKS_ROOT=./demo node ./bin/fireworks.mjs inform --by eris --target nao --rank 1
+FIREWORKS_ROOT=./demo node ./bin/fireworks.mjs inform --by eris --target nao --color blue
 ```
 
 ## Verbs
@@ -123,7 +125,7 @@ Carried over from [`guild-cli`](https://github.com/eris-ths/guild-cli) v0.3.0, a
 
 A wasmoon-backed Lua sandbox exists at `src/core/lua/sandbox.ts` with a hard-coded deny list (`os`, `io`, `require`, `package`, `debug`, `load`, `loadstring`, `loadfile`, `dofile`, `collectgarbage`). The deny list is pinned by a test that enumerates every denied global and asserts each is `nil` inside the sandbox. Pure-compute modules (`math`, `string`, `table`) are kept.
 
-Lua is not yet integrated into the hanabi domain logic; the sandbox is a hook point for [`atelier`](./docs/ATELIER.md)'s Card scripting layer.
+Lua is not yet integrated into the fireworks domain logic; the sandbox is a hook point for [`atelier`](./docs/ATELIER.md)'s Card scripting layer.
 
 ## Repository hygiene
 
@@ -131,6 +133,16 @@ Lua is not yet integrated into the hanabi domain logic; the sandbox is a hook po
 - `games/`, `_playground/`, `data/` are gitignored. Your ledger files stay local.
 - Commits are signed (when configured) and co-author lines are used when Claude or another AI collaborated on a change.
 
+## Credits & trademark notice
+
+- **Game design**: Hanabi was designed by **Antoine Bauza** (France) and originally published by **Cocktail Games** in 2010. It received the **Spiel des Jahres** award in 2013. Subsequent editions have been distributed by R&R Games (North America) and Abacusspiele (Germany), among others.
+- This CLI is an **independent, non-commercial, open-source re-implementation** of the game's rules, created for experimental and educational purposes (exploring how event-sourced ledger architectures apply to games with hidden information). It is **not affiliated with, endorsed by, or sponsored by** Antoine Bauza, Cocktail Games, R&R Games, or Abacusspiele.
+- No artwork, card illustrations, rulebook text, or other copyrighted material from the published game is included. Only the rule system (which is not subject to copyright) has been re-implemented.
+- "Hanabi" may be a registered trademark of its respective owner. Its use in this repository is limited to nominative reference — identifying which game's rules are being implemented — and is not intended as a claim of association or endorsement.
+- If you enjoy the game, please **buy the physical edition** from a legitimate retailer; the authors and publishers deserve the support.
+
 ## License
+
+Source code: **MIT License** (see below). This license covers only the code in this repository, not the underlying game design, which belongs to its designer.
 
 MIT

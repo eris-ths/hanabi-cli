@@ -1,8 +1,18 @@
 # Changelog
 
-All notable changes to hanabi-cli (precursor to atelier) follow the 0.x strict-variant semver policy inherited from guild-cli: every BREAKING change must be called out explicitly.
+All notable changes to fireworks-cli (precursor to atelier) follow the 0.x strict-variant semver policy inherited from guild-cli: every BREAKING change must be called out explicitly.
 
 ## [Unreleased]
+
+### BREAKING
+
+- **Project renamed: `hanabi-cli` → `fireworks-cli`** (repository: `eris-ths/hanabi-cli` → `eris-ths/fireworks-cli`). Motivation: trademark-safety and clearer positioning as a rules-only independent re-implementation. Migration required for existing clones:
+  - `git remote set-url origin https://github.com/eris-ths/fireworks-cli.git`
+  - Local directory: `hanabi-cli/` → `fireworks-cli/`
+  - Binary: `bin/hanabi.mjs` → `bin/fireworks.mjs` (command: `hanabi` → `fireworks`)
+  - Environment variables: `HANABI_ROOT` → `FIREWORKS_ROOT`, `HANABI_REVEAL` → `FIREWORKS_REVEAL`
+  - Game data files under `games/` are format-compatible; no data migration needed.
+- Added explicit credit and trademark notice. README / README.ja.md now cite Hanabi's designer (Antoine Bauza) and publishers (Cocktail Games, R&R Games, Abacusspiele) and clarify that only the rule system — not subject to copyright — has been re-implemented. No artwork, rulebook text, or other copyrighted material is included.
 
 ### Added
 
@@ -18,7 +28,7 @@ All notable changes to hanabi-cli (precursor to atelier) follow the 0.x strict-v
 
 ### Pending
 
-- Lua integration into hanabi domain (e.g. end_check.lua driving win/lose judgment — currently deferred; core sandbox exists as hook point).
+- Lua integration into fireworks domain (e.g. end_check.lua driving win/lose judgment — currently deferred; core sandbox exists as hook point).
 - Extraction of `atelier-core` from shared infrastructure (deferred until the second pack lands — Rule of Three).
 
 ## [0.1.0] — 2026-04-22
