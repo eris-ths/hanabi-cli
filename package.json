@@ -1,0 +1,25 @@
+{
+  "name": "hanabi-cli",
+  "version": "0.1.0",
+  "description": "Hanabi CLI — cooperative card game as an append-only YAML ledger. Forked from eris-ths/guild-cli v0.3.0.",
+  "type": "module",
+  "bin": {
+    "hanabi": "./bin/hanabi.mjs"
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "tsc && node tests/run.mjs",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "yaml": "^2.5.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.4.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "license": "MIT"
+}
