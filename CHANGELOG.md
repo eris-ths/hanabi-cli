@@ -6,6 +6,8 @@ All notable changes to hanabi-cli (precursor to atelier) follow the 0.x strict-v
 
 ### Added
 
+- `README.md` — upgraded from scaffolding stub to a guild-cli-class full-surface README. Includes design pedigree, quick-start, rules implemented, security & quality notes, and pointers into `AGENT.md` and `docs/ATELIER.md`.
+- `AGENT.md` — AI-first quick reference. Complete verb map, card notation, file layout, concurrency model, philosophy one-liners, gotchas. Written to be read instead of `README.md` when the operator is an LLM.
 - `docs/ATELIER.md` — vision document for the atelier engine (successor architecture). Includes SDK, pack structure, Lua role, Card abstraction, Eris Architecture resonance, security & quality charter.
 - `docs/PROTOTYPES.md` — vision for the next two prototypes that share the atelier substrate: Gemini ReAct agent on ledger, Mini Claude Code (Skill/Memory/Rules/Hooks/MCP/Plugins/SubAgents). Rule of Three extraction trigger at the third working prototype.
 - `SECURITY.md` — threat model for v0.1.x and forward-looking notes for atelier's Lua + pack era.
