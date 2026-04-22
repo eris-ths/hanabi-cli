@@ -15,6 +15,24 @@ Three simultaneous goals:
 - **Dogfood the lens pattern in a game setting**. A single `snap.log` is the source of truth. `show` with no `--as` yields the full board; `show --as eris` hides eris's own hand. No branching persistence paths — just perspective-dependent rendering at the interface boundary.
 - **Scaffold a path to [`atelier`](./docs/ATELIER.md)** — a general-purpose AI-first game engine built around Card-driven architecture, Lua sandboxing, pack distribution, and observer-AI slots.
 
+## Is the game actually fun?
+
+Yes — Hanabi is a classic (Spiel des Jahres 2013, still highly regarded) and the CLI implementation preserves what makes it work:
+
+- **You can't see your own hand, but you can see everyone else's.** Every hint you give your partner is one they can't give themselves. Every move is half information flow, half card placement. It's the only card game I know where *improving at communicating* is the main way you get better.
+- **Limited hints (8 info tokens), shared miss budget (3 strikes).** You'll feel the tension in turn 5 when someone could be discarding a 5 and you don't have a free hint to warn them.
+- **Conventions emerge between partners.** "Rank-3 hint returned after blue-hint received" starts meaning something specific to your pair. The game becomes a shared grammar, not a rulebook.
+- **Mistakes are cooperative, not adversarial.** When you miss, it's "how do we signal better next time" — never "you should have known." It's a gentle game for the relationship, tense for the table.
+- **One game runs 15–30 minutes.** Short enough for a lunch break, long enough to feel like a story.
+
+What the CLI adds that a physical deck doesn't:
+
+- **Asynchronous play is natural.** The ledger file *is* the game state. Email it, git-commit it, drop it in a shared folder — your partner picks up from `show --as <their-name>` whenever they have a spare minute. Turn-by-turn games over days become viable.
+- **Replay.** Every game's full log is in the YAML. Given the seed, you can reconstruct any turn, watch yourself make a mistake, or share a brilliant comeback.
+- **AI partners are coming.** An observer AI (future `atelier` feature) could kibitz, or play as a hidden-info partner itself.
+
+If you're new to Hanabi, the 2-player variant in this CLI is the gentlest on-ramp. Start with `--seed beginner-friendly`, play a game end-to-end, and see where the tension naturally arises.
+
 ## How much of this do I need to read?
 
 | Depth | File | When it's enough |
